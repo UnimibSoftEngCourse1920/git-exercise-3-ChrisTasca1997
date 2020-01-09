@@ -1,5 +1,5 @@
 package org.junit;
-
+import java.util.Comparator;
 import org.hamcrest.Matcher;
 import org.hamcrest.MatcherAssert;
 import org.junit.function.ThrowingRunnable;
@@ -1030,5 +1030,35 @@ public class Assert {
 
     private static String buildPrefix(String message) {
         return message != null && message.length() != 0 ? message + ": " : "";
+    }
+    
+    static public boolean assertGreaterThan(int o1, int o2, Comparator<Integer> comparator){
+        if (comparator.compare(o1, o2) > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+  static  public boolean assertGreaterThan(double o1, double o2, Comparator<Double> comparator){
+        if (comparator.compare(o1, o2) > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+   static public boolean assertGreaterThan(String o1, String o2, Comparator<String> comparator){
+        if (comparator.compare(o1, o2) > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    static public boolean assertGreaterThan(char o1, char o2, Comparator<Character> comparator){
+        if (comparator.compare(o1, o2) > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
