@@ -1,5 +1,5 @@
 package org.junit;
-
+import java.util.Comparator;
 import org.hamcrest.Matcher;
 import org.hamcrest.MatcherAssert;
 import org.junit.function.ThrowingRunnable;
@@ -42,6 +42,8 @@ public class Assert {
             fail(message);
         }
     }
+    
+    
 
     /**
      * Asserts that a condition is true. If it isn't it throws an
@@ -964,6 +966,7 @@ public class Assert {
         MatcherAssert.assertThat(reason, actual, matcher);
     }
 
+
     /**
      * Asserts that {@code runnable} throws an exception of type {@code expectedThrowable} when
      * executed. If it does, the exception object is returned. If it does not throw an exception, an
@@ -1029,6 +1032,13 @@ public class Assert {
     }
 
     private static String buildPrefix(String message) {
-        return message != null && message.length() != 0 ? message + ": " : "";
+        return message != null && message.length() != 0 ? message + ": " : ""; }
+    
+    public static <T> boolean assertGreaterThan(T o1, T o2, Comparator<T> comparator) {
+        if (comparator.compare(o1, o2) > 0)
+            return true;
+        else
+            return false;
+
     }
 }
