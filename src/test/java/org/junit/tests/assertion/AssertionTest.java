@@ -1,6 +1,7 @@
 package org.junit.tests.assertion;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import java.util.Comparator;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertArrayEquals;
@@ -10,6 +11,7 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertGreaterThan;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -19,6 +21,8 @@ import org.junit.Assert;
 import org.junit.ComparisonFailure;
 import org.junit.Test;
 import org.junit.internal.ArrayComparisonFailure;
+
+
 
 /**
  * Tests for {@link org.junit.Assert}
@@ -30,7 +34,24 @@ public class AssertionTest {
 // @Test (expected=AssertionError.class) public void error() {
 //      assert false;
 //  }
-
+    
+     
+    public void greaterThan() {
+        Comparator<Integer> c = new Comparator<Integer> ()
+            {public int compare(Integer o1, Integer o2) {
+                if(o1 > o2)
+                        return 1; 
+                    else return -1;}};
+                    
+        Comparator<String> s = new Comparator<String> ()
+            {public int compare(String o1, String o2) {
+                           return o1.compareTo(o2);}};
+        
+          assertEquals(assertGreaterThan(1, 2, c), false);
+          assertEquals(assertGreaterThan("GoodMorning", "hello", s), true);
+    }
+    
+    
     @Test(expected = AssertionError.class)
     public void fails() {
         Assert.fail();
