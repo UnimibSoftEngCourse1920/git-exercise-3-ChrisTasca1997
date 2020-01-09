@@ -1,5 +1,5 @@
 package org.junit.tests.assertion;
-
+import java.util.Comparator;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
@@ -9,6 +9,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertGreaterThan;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertThrows;
@@ -26,6 +27,10 @@ import org.junit.internal.ArrayComparisonFailure;
 /**
  * Tests for {@link org.junit.Assert}
  */
+
+
+
+
 public class AssertionTest {
 // If you want to use 1.4 assertions, they will be reported correctly.
 // However, you need to add the -ea VM argument when running.
@@ -33,6 +38,39 @@ public class AssertionTest {
 // @Test (expected=AssertionError.class) public void error() {
 //      assert false;
 //  }
+    public void greater() {
+        Comparator<Integer> i = new Comparator<Integer> () {
+            public int compare(Integer o1, Integer o2) {
+                return o1-o2;
+            }
+        };
+        Comparator<Double> d = new Comparator<Double> () {
+            public int compare(Double o1, Double o2) {
+                if(o1 > o2)
+                    return 1;
+                else
+                    return -1;
+            }
+        };
+        Comparator<Character> c = new Comparator<Character> () {
+            public int compare(Character o1, Character o2) {
+                if(o1 > o2)
+                    return 1;
+                else
+                    return -1;
+            }
+        };
+        Comparator<String> s = new Comparator<String> () {
+            public int compare(String o1, String o2) {
+                return o1.compareTo(o2);
+            }
+        };
+        
+        assertEquals(assertGreaterThan(2, 1, i), true);
+        assertEquals(assertGreaterThan("GoodMorning", "hello", s), true);
+        assertEquals(assertGreaterThan('c', 'a', c), true);
+        assertEquals(assertGreaterThan(1.0, 2.0, d), true);
+    }
 
     private static final String ASSERTION_ERROR_EXPECTED = "AssertionError expected";
 
